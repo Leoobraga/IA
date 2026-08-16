@@ -1,0 +1,1206 @@
+<!-- Este site foi desenvolvido para resenhas escolares, sem qualquer intenção maliciosa. -->
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="shortcut icon" href="img/ChatGPT Image 16 de ago. de 2026, 20_07_39.png" type="image/x-icon">
+
+    <title>Leo.AI</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body {
+            background: #0f0f0f;
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* HEADER */
+
+        header {
+            width: 100%;
+            height: 65px;
+            border-bottom: 1px solid #292929;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 30px;
+            background: #151515;
+        }
+
+        .logo {
+            font-size: 23px;
+            font-weight: bold;
+        }
+
+        .logo span {
+            color: #8b5cf6;
+        }
+
+        .status {
+            font-size: 13px;
+            color: #9ca3af;
+        }
+
+
+        /* MAIN */
+
+        main {
+            flex: 1;
+            width: 100%;
+            max-width: 900px;
+            margin: auto;
+            padding: 50px 20px;
+        }
+
+
+        /* INICIO */
+
+        .inicio {
+            text-align: center;
+            margin-top: 60px;
+            margin-bottom: 40px;
+        }
+
+        .inicio h1 {
+            font-size: 42px;
+            margin-bottom: 15px;
+        }
+
+        .inicio h1 span {
+            color: #8b5cf6;
+        }
+
+        .inicio p {
+            color: #9ca3af;
+            font-size: 17px;
+        }
+
+
+        /* CHAT */
+
+        .chat {
+            width: 100%;
+        }
+
+        .mensagens {
+            margin-bottom: 20px;
+        }
+
+        .mensagem {
+            padding: 18px;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            line-height: 1.5;
+            border: 1px solid #292929;
+        }
+
+        .usuario {
+            background: #252525;
+            margin-left: auto;
+            max-width: 80%;
+        }
+
+        .ia {
+            background: #181818;
+            max-width: 80%;
+        }
+
+
+        /* INPUT */
+
+        .entrada {
+            width: 100%;
+            background: #1c1c1c;
+            border: 1px solid #383838;
+            border-radius: 15px;
+            padding: 8px;
+            display: flex;
+            align-items: center;
+        }
+
+        .entrada input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            outline: none;
+            color: white;
+            padding: 15px;
+            font-size: 16px;
+        }
+
+        .entrada input::placeholder {
+            color: #777;
+        }
+
+        .entrada button {
+            width: 48px;
+            height: 48px;
+            border: none;
+            border-radius: 12px;
+            background: #7c3aed;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        .entrada button:hover {
+            background: #6d28d9;
+        }
+
+        .aviso {
+            text-align: center;
+            margin-top: 15px;
+            color: #666;
+            font-size: 12px;
+        }
+
+
+        /* PLANOS */
+
+        .planos {
+            display: none;
+            margin-top: 40px;
+            animation: aparecer 0.5s ease;
+        }
+
+        .planos-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .planos-header h2 {
+            font-size: 30px;
+            margin-bottom: 12px;
+        }
+
+        .planos-header p {
+            color: #9ca3af;
+            line-height: 1.5;
+        }
+
+        .cards-planos {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+        }
+
+        .card-plano {
+            position: relative;
+            background: #181818;
+            border: 1px solid #303030;
+            border-radius: 16px;
+            padding: 25px;
+            text-align: center;
+            transition: 0.2s;
+        }
+
+        .card-plano:hover {
+            transform: translateY(-5px);
+            border-color: #7c3aed;
+        }
+
+        .card-plano.destaque {
+            border: 2px solid #7c3aed;
+        }
+
+        .badge {
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #7c3aed;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: bold;
+            white-space: nowrap;
+        }
+
+        .plano-nome {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .preco {
+            font-size: 32px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .card-plano p {
+            color: #999;
+            font-size: 14px;
+            min-height: 45px;
+            line-height: 1.4;
+        }
+
+        .card-plano button {
+            width: 100%;
+            margin-top: 20px;
+            padding: 13px;
+            border: none;
+            border-radius: 10px;
+            background: #7c3aed;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .card-plano button:hover {
+            background: #6d28d9;
+        }
+
+        .demo-aviso {
+            text-align: center;
+            color: #777;
+            font-size: 12px;
+            margin-top: 25px;
+        }
+
+
+        /* PAGAMENTO */
+
+        .pagamento {
+            display: none;
+            text-align: center;
+            margin-top: 50px;
+            animation: aparecer 0.5s ease;
+        }
+
+        .pagamento-box {
+            background: #181818;
+            border: 1px solid #303030;
+            border-radius: 18px;
+            padding: 35px;
+            max-width: 500px;
+            margin: auto;
+        }
+
+        .pagamento-box h2 {
+            margin-bottom: 12px;
+        }
+
+        .pagamento-box p {
+            color: #999;
+            line-height: 1.5;
+            margin-bottom: 25px;
+        }
+
+        .plano-escolhido {
+            background: #222;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+
+
+        /* CUPOM */
+
+        .cupom-area {
+            text-align: left;
+            margin-bottom: 20px;
+        }
+
+        .cupom-area label {
+            display: block;
+            color: #ccc;
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+
+        .cupom-input {
+            display: flex;
+            gap: 8px;
+        }
+
+        .cupom-input input {
+            flex: 1;
+            background: #111;
+            border: 1px solid #383838;
+            border-radius: 9px;
+            padding: 12px;
+            color: white;
+            outline: none;
+            text-transform: uppercase;
+        }
+
+        .cupom-input input:focus {
+            border-color: #7c3aed;
+        }
+
+        .cupom-input button {
+            border: none;
+            border-radius: 9px;
+            padding: 0 18px;
+            background: #333;
+            color: white;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .cupom-input button:hover {
+            background: #444;
+        }
+
+        #mensagemCupom {
+            margin-top: 8px;
+            font-size: 12px;
+        }
+
+        .cupom-sucesso {
+            color: #22c55e;
+        }
+
+        .cupom-erro {
+            color: #ef4444;
+        }
+
+
+        /* DEMONSTRAÇÃO PIX */
+
+        .pix-demo {
+            background: #111;
+            border: 1px dashed #555;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .pix-demo strong {
+            display: block;
+            margin-bottom: 8px;
+            color: #8b5cf6;
+        }
+
+
+        /* BOTÃO PAGAMENTO */
+
+        .botao-confirmar {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 10px;
+            background: #7c3aed;
+            color: white;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .botao-confirmar:hover {
+            background: #6d28d9;
+        }
+
+
+        /* ERRO */
+
+        .erro-pagamento {
+            display: none;
+            margin-top: 18px;
+            padding: 14px;
+            border-radius: 10px;
+            background: rgba(239, 68, 68, 0.10);
+            border: 1px solid #ef4444;
+            color: #f87171;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+
+        .aviso-pagamento {
+            font-size: 12px;
+            color: #777;
+            margin-top: 15px;
+        }
+
+
+        /* RESPOSTA */
+
+        .resposta-final {
+            display: none;
+            margin-top: 40px;
+            animation: aparecer 0.5s ease;
+        }
+
+        .resposta-box {
+            background: #181818;
+            border: 1px solid #303030;
+            border-radius: 16px;
+            padding: 30px;
+        }
+
+        .resposta-box h2 {
+            margin-bottom: 15px;
+        }
+
+        .resposta-box p {
+            color: #ccc;
+            line-height: 1.7;
+        }
+
+
+        /* ANIMAÇÃO */
+
+        @keyframes aparecer {
+
+            from {
+                opacity: 0;
+                transform: translateY(15px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+        }
+
+
+        /* FOOTER */
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: #555;
+            font-size: 12px;
+        }
+
+
+        /* CELULAR */
+
+        @media (max-width: 700px) {
+
+            .inicio h1 {
+                font-size: 32px;
+            }
+
+            .cards-planos {
+                grid-template-columns: 1fr;
+            }
+
+            .usuario,
+            .ia {
+                max-width: 95%;
+            }
+
+            .cupom-input {
+                flex-direction: column;
+            }
+
+            .cupom-input button {
+                padding: 12px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- HEADER -->
+
+    <header>
+
+        <div class="logo">
+            Leo<span>.AI</span>
+        </div>
+
+        <div class="status">
+            ●  Versão 1.41
+        
+        </div>
+
+    </header>
+
+
+
+    <!-- CONTEÚDO -->
+
+    <main>
+
+
+        <!-- TELA INICIAL -->
+
+        <section class="inicio" id="inicio">
+
+            <h1>
+                Como posso <span>ajudar?</span>
+            </h1>
+
+            <p>
+                Faça uma pergunta e descubra uma solução personalizada.
+            </p>
+
+        </section>
+
+
+
+        <!-- CHAT -->
+
+        <section class="chat" id="chat">
+
+            <div class="mensagens" id="mensagens"></div>
+
+
+            <div class="entrada">
+
+                <input
+                    type="text"
+                    id="pergunta"
+                    placeholder="Digite sua pergunta..."
+                    autocomplete="off"
+                >
+
+                <button id="btnEnviar">
+                    ➜
+                </button>
+
+            </div>
+
+
+            <div class="aviso">
+                O Leo.AI pode cometer erros. Verifique informações importantes.
+            </div>
+
+        </section>
+
+
+
+        <!-- PLANOS -->
+
+        <section class="planos" id="planos">
+
+            <div class="planos-header">
+
+                <h2>
+                    🔓 Desbloqueie sua resposta
+                </h2>
+
+                <p>
+                    Nossa análise encontrou uma resposta para sua pergunta.
+                    Escolha uma opção para continuar.
+                </p>
+
+            </div>
+
+
+            <div class="cards-planos">
+
+
+                <!-- BÁSICO -->
+
+                <div class="card-plano">
+
+                    <div class="plano-nome">
+                        Básico
+                    </div>
+
+                    <div class="preco">
+                        R$ 89,99
+                    </div>
+
+                    <p>
+                        <strong>Apenas 5 perguntas liberadas. </strong>Resposta resumida para suas perguntas.
+                    </p>
+
+                    <button onclick="selecionarPlano('Básico', '89,99')">
+                        Desbloquear
+                    </button>
+
+                </div>
+
+
+
+                <!-- COMPLETO -->
+
+                <div class="card-plano destaque">
+
+                    <div class="badge">
+                        MAIS ESCOLHIDO
+                    </div>
+
+                    <div class="plano-nome">
+                        Completo
+                    </div>
+
+                    <div class="preco">
+                        R$ 199,99
+                    </div>
+
+                    <p>
+                        <strong>50 perguntas liberadas.</strong> Resposta completa e personalizada.
+                    </p>
+
+                    <button onclick="selecionarPlano('Completo', '199,99')">
+                        Desbloquear resposta
+                    </button>
+
+                </div>
+
+
+
+                <!-- PREMIUM -->
+
+                <div class="card-plano">
+
+                    <div class="plano-nome">
+                        Premium
+                    </div>
+
+                    <div class="preco">
+                        R$ 299,90
+                    </div>
+
+                    <p>
+                        <strong>Perguntas Ilimitadas.</strong> Análise detalhada da sua pergunta.
+                    </p>
+
+                    <button onclick="selecionarPlano('Premium', '299,90')">
+                        Desbloquear
+                    </button>
+
+                </div>
+
+
+            </div>
+
+
+            <div class="demo-aviso">
+                ⚠️ Finalize o pagamento para a liberação
+            </div>
+
+        </section>
+
+
+
+        <!-- PAGAMENTO -->
+
+        <section class="pagamento" id="pagamento">
+
+            <div class="pagamento-box">
+
+                <h2>
+                    🔐 Desbloqueio
+                </h2>
+
+                <p>
+                    Você selecionou o plano abaixo.
+                </p>
+
+
+                <!-- PLANO E PREÇO -->
+
+                <div class="plano-escolhido">
+
+                    <strong id="nomePlano">
+                        Plano
+                    </strong>
+
+                    <br><br>
+
+                    <span id="precoOriginal">
+                        R$ 0,00
+                    </span>
+
+                    <div id="descontoArea" style="display: none;">
+
+                        <small style="color: #22c55e;">
+                            Cupom aplicado: - R$ 1,00
+                        </small>
+
+                    </div>
+
+                    <br>
+
+                    <strong style="font-size: 24px;">
+                        R$ <span id="valorPlano">0,00</span>
+                    </strong>
+
+                </div>
+
+
+                <!-- CUPOM -->
+
+                <div class="cupom-area">
+
+                    <label for="cupom">
+                        Possui um cupom?
+                    </label>
+
+                    <div class="cupom-input">
+
+                        <input
+                            type="text"
+                            id="cupom"
+                            placeholder="Digite seu cupom"
+                            autocomplete="off"
+                        >
+
+                        <button onclick="aplicarCupom()">
+                            Aplicar
+                        </button>
+
+                    </div>
+
+                    <div id="mensagemCupom"></div>
+
+                </div>
+
+
+                <!-- DEMONSTRAÇÃO -->
+
+                <div class="pix-demo">
+
+                    <strong>
+                        Chave Pix
+                    </strong>
+
+                    Email: Kingteamgg999@gmail.com
+
+                </div>
+
+
+                <!-- BOTÃO -->
+
+                <button
+                    class="botao-confirmar"
+                    onclick="tentarPagamento()"
+                >
+                    Continuar para desbloquear
+                </button>
+
+
+                <!-- ERRO -->
+
+                <div
+                    id="erroPagamento"
+                    class="erro-pagamento"
+                >
+                    ❌ <strong>Pagamento não concluído.</strong>
+                    <br>
+                    Não foi possível confirmar o pagamento.
+                    <br>
+                    Tente novamente.
+                </div>
+
+
+                <div class="aviso-pagamento">
+
+                Pagamento pendente
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- RESPOSTA FINAL -->
+
+        <section class="resposta-final" id="respostaFinal">
+
+            <div class="resposta-box">
+
+                <h2>
+                    ✅ Resposta desbloqueada
+                </h2>
+
+                <p id="textoResposta">
+
+                    Sua resposta personalizada aparecerá aqui.
+
+                </p>
+
+            </div>
+
+        </section>
+
+
+    </main>
+
+
+
+    <!-- FOOTER -->
+
+    <footer>
+
+        Leo.AI © 2026
+
+
+    </footer>
+
+
+
+    <script>
+
+
+        const pergunta =
+            document.getElementById("pergunta");
+
+        const btnEnviar =
+            document.getElementById("btnEnviar");
+
+        const mensagens =
+            document.getElementById("mensagens");
+
+        const planos =
+            document.getElementById("planos");
+
+        const chat =
+            document.getElementById("chat");
+
+        const inicio =
+            document.getElementById("inicio");
+
+        const pagamento =
+            document.getElementById("pagamento");
+
+        const respostaFinal =
+            document.getElementById("respostaFinal");
+
+
+        let perguntaUsuario = "";
+
+        let precoAtual = 0;
+
+        let cupomAplicado = false;
+
+
+
+        // ============================
+        // ENVIAR PERGUNTA
+        // ============================
+
+        function enviarPergunta() {
+
+            const texto =
+                pergunta.value.trim();
+
+
+            if (texto === "") {
+                return;
+            }
+
+
+            perguntaUsuario = texto;
+
+
+            const mensagemUsuario =
+                document.createElement("div");
+
+            mensagemUsuario.classList.add(
+                "mensagem",
+                "usuario"
+            );
+
+            mensagemUsuario.textContent =
+                texto;
+
+            mensagens.appendChild(
+                mensagemUsuario
+            );
+
+
+            pergunta.value = "";
+
+
+            // RESPOSTA SIMULADA
+
+            setTimeout(() => {
+
+                const mensagemIA =
+                    document.createElement("div");
+
+                mensagemIA.classList.add(
+                    "mensagem",
+                    "ia"
+                );
+
+                mensagemIA.innerHTML = `
+                    🤖 <strong>Analisando sua pergunta, so um momento...</strong>
+                   
+                `;
+
+                mensagens.appendChild(
+                    mensagemIA
+                );
+
+
+                setTimeout(() => {
+
+                    inicio.style.display = "none";
+
+                    chat.style.display = "none";
+
+                    planos.style.display = "block";
+
+                    planos.scrollIntoView({
+                        behavior: "smooth"
+                    });
+
+                }, 1200);
+
+
+            }, 800);
+
+        }
+
+
+
+        // ============================
+        // BOTÃO ENVIAR
+        // ============================
+
+        btnEnviar.addEventListener(
+            "click",
+            enviarPergunta
+        );
+
+
+
+        // ============================
+        // ENTER
+        // ============================
+
+        pergunta.addEventListener(
+            "keydown",
+            function(event) {
+
+                if (event.key === "Enter") {
+
+                    enviarPergunta();
+
+                }
+
+            }
+        );
+
+
+
+        // ============================
+        // SELECIONAR PLANO
+        // ============================
+
+        function selecionarPlano(nome, preco) {
+
+            document.getElementById(
+                "nomePlano"
+            ).textContent = nome;
+
+
+            precoAtual =
+                parseFloat(
+                    preco.replace(",", ".")
+                );
+
+
+            cupomAplicado = false;
+
+
+            document.getElementById(
+                "precoOriginal"
+            ).textContent =
+                "R$ " +
+                precoAtual
+                    .toFixed(2)
+                    .replace(".", ",");
+
+
+            document.getElementById(
+                "valorPlano"
+            ).textContent =
+                precoAtual
+                    .toFixed(2)
+                    .replace(".", ",");
+
+
+            document.getElementById(
+                "cupom"
+            ).value = "";
+
+
+            document.getElementById(
+                "mensagemCupom"
+            ).textContent = "";
+
+
+            document.getElementById(
+                "mensagemCupom"
+            ).className = "";
+
+
+            document.getElementById(
+                "descontoArea"
+            ).style.display = "none";
+
+
+            document.getElementById(
+                "erroPagamento"
+            ).style.display = "none";
+
+
+            planos.style.display = "none";
+
+            pagamento.style.display = "block";
+
+
+            pagamento.scrollIntoView({
+                behavior: "smooth"
+            });
+
+        }
+
+
+
+        // ============================
+        // APLICAR CUPOM
+        // ============================
+
+        function aplicarCupom() {
+
+            const campoCupom =
+                document.getElementById("cupom");
+
+            const mensagem =
+                document.getElementById(
+                    "mensagemCupom"
+                );
+
+
+            const cupom =
+                campoCupom.value
+                    .trim()
+                    .toUpperCase();
+
+
+            if (cupom === "") {
+
+                mensagem.textContent =
+                    "Digite um cupom.";
+
+                mensagem.className =
+                    "cupom-erro";
+
+                return;
+
+            }
+
+
+            if (cupom === "BRAGA67") {
+
+
+                if (cupomAplicado) {
+
+                    mensagem.textContent =
+                        "Cupom já aplicado.";
+
+                    mensagem.className =
+                        "cupom-sucesso";
+
+                    return;
+
+                }
+
+
+                precoAtual =
+                    precoAtual - 1;
+
+
+                cupomAplicado = true;
+
+
+                document.getElementById(
+                    "valorPlano"
+                ).textContent =
+                    precoAtual
+                        .toFixed(2)
+                        .replace(".", ",");
+
+
+                document.getElementById(
+                    "descontoArea"
+                ).style.display = "block";
+
+
+                mensagem.textContent =
+                    "✓ Cupom BRAGA67 aplicado! R$ 1,00 de desconto.";
+
+
+                mensagem.className =
+                    "cupom-sucesso";
+
+
+            } else {
+
+
+                mensagem.textContent =
+                    "Cupom inválido.";
+
+                mensagem.className =
+                    "cupom-erro";
+
+            }
+
+        }
+
+
+
+        // ============================
+        // TENTAR PAGAMENTO
+        // ============================
+
+        function tentarPagamento() {
+
+            const erro =
+                document.getElementById(
+                    "erroPagamento"
+                );
+
+
+            erro.style.display =
+                "block";
+
+
+            erro.innerHTML = `
+                ❌ <strong>Pagamento não concluído.</strong>
+                <br>
+                Não foi possível confirmar o pagamento.
+                <br>
+                Tente novamente.
+            `;
+
+
+            erro.scrollIntoView({
+                behavior: "smooth",
+                block: "center"
+            });
+
+        }
+
+
+    </script>
+
+
+</body>
+
+</html>
+
